@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Poppins&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.gpt{
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    height: 100vh;
+    
+    
+}
+
+.left{
+    background-color: rgb(7, 7, 63);
+    width: 60%;
+    font-family: 'Dancing Script', cursive;
+font-family: 'Poppins', sans-serif;
+}
+
+.left h2{
+    padding: 15px 20px;
+    color: blueviolet;
+    display: flex;
+  align-items: center;
+}
+
+.content{
+    margin-top: 50px;
+    padding: 0 20px;
+    color: blueviolet;
+    
+}
+
+.content h1{
+    font-size: 2.6rem;
+}
+.content p{
+    font-size: 2rem;
+}
+
+.font-circle{
+    font-size: 2.8rem;
+}
+
+a{
+    text-decoration: none;
+}
+
+.right{
+    background-color: black;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-family: 'Dancing Script', cursive;
+font-family: 'Poppins', sans-serif;
+}
+.chatbot{
+    display: none;
+}
+.right h1{
+    font-weight: bold;
+    
+}
+
+.button{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  justify-content: center;
+  margin-bottom: 25%;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+
+.button p{
+    padding: 11px 60px;
+  background-color: blue;
+  border-radius: 5px;
+  margin: 12px 0;
+  font-weight: bold;
+  
+}
+
+.button p:hover{
+    background-color: rgba(0, 0, 255, 0.836);
+}
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer h2{
+    margin: 12px 0;
+}
+
+.condition{
+    display: flex;
+    gap: 10px;
+}
+
+@media screen and (max-width: 960px) {
+    body{
+        background-color: black;
+        color: white;
+    }
+    .left{
+        display: none;
+    }
+
+    
+    .right{
+        width: 100%;
+    }
+
+    .chatbot{
+        display: visible;
+    }
+  }
