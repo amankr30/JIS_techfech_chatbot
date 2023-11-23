@@ -2,48 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Question-Answering Chatbot</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS for the header to float on top */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 9999;
+            background-color: white; /* Optional: Add background color */
+        }
+
+        /* Adjust body padding to make space for the fixed header */
+        body {
+            padding-top: 80px; /* Change this value according to your header's height */
+        }
+    </style>
 </head>
-<body>
-    
-    <div class="gpt">
-        <div class="left">
-            <h2>ChatGPT <span class="font-circle">●</span></h2>
+<body class="bg-gray-100 flex flex-col h-screen">
 
-            <div class="content">
-            <h1>Plan a Trip</h1>
-            <p>To See a northern lights</p>
-            </div>
+    <!--navbar-->
 
-            
-    
+    <header class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span class="ml-3 text-xl">Tailblocks</span>
+          </a>
+          <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+            <a class="mr-5 hover:text-gray-900">First Link</a>
+            <a class="mr-5 hover:text-gray-900">Second Link</a>
+            <a class="mr-5 hover:text-gray-900">Third Link</a>
+            <a class="mr-5 hover:text-gray-900">Fourth Link</a>
+          </nav>
+          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Button
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
         </div>
-        <div class="right">
-            <div class="chatbot">
-                <h2>ChatGPT <span class="font-circle">●</span></h2>
-            </div>
+      </header>
+    
+    <!--hero-->
 
-            <h1>Get Started</h1>
-            <div class="button">
-                <p>Log in</p>
-                <p>Sign up</p>
-            </div>
-
-            <div class="footer">
-                <h3>OpenAI</h3>
-                <div class="condition">
-                    <a href="#"><p>Terms of use</p></a>
-                    <span>|</span>
-                    <a href="#"><p>Privacy policy</p></a>
+    <div class="flex-1 flex flex-col justify-end py-4 px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col space-y-2 items-end" id="chat-container">
+            <div class="flex flex-col items-start w-full" id="chat-box">
+                <div class="flex pb-2 mb-2 flex-col items-start w-full rounded-lg p-3 bg-blue-500 text-white self-start">
+                    <span class="text-sm">Welcome! Ask me anything.</span>
                 </div>
             </div>
-
-        
+        </div>
+        <div class="flex items-center mt-4">
+            <input type="text" id="user_input" placeholder="Type your question here..." class="flex-1 py-2 px-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
+            <button id="submit" class="ml-2 py-2 px-4 bg-blue-700 text-white rounded-lg focus:outline-none focus:bg-blue-800">Send</button>
         </div>
     </div>
-    
-    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const userInput = document.getElementById("user_input");
+            const chatBox = document.getElementById("chat-box");
+
+            document.getElementById("submit").addEventListener("click", async () => {
+                sendMessage();
+            });
+
+            userInput.addEventListener("keypress", (event) => {
+                if (event.key === "Enter") {
+                    sendMessage();
+                }
+            });
+
+            async function sendMessage() {
+                const user_input = userInput.value;
+                appendMessage(user_input, "user");
+                const response = await getBotResponse(user_input);
+                appendMessage(response, "bot");
+                userInput.value = "";
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            async function getBotResponse(userInput) {
+                try {
+                    const response = await fetch("http://127.0.0.1:5000/answer", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ "context": "Narula Institute of Technology established in 2001 under the aegis of JIS Group Educational and is located at Agarpara, Kolkata. NIT Agarpara is an autonomous institute and is affiliated to Maulana Abul Kalam Azad University of Technology, Kolkata (MAKAUT, West Bengal). The technical courses of Narula Institute of Technology are approved by the AICTE. The institute has NBA accredited degree programmes in Engineering. NIT Agarpara has been accredited by NAAC with ‘A’ grade. Tech Mahindra Reliance JIO Infocomm, CII, NASSCOM, Oracle, INFOSYS, TCS, NIT Sikkim, IIT-KGP, AIT Bangkok are some reputed institutes have all cooperated with the narula institute of technology. Narula Institute of Technology has ranked in the rank band of 201-250 in the Engineering category in the NIRF rankings.With a campus covering an area of 5 acres, Narula Institute of Technology has 255 faculty members. ", "question": userInput })
+                    });
+                    const responseData = await response.json();
+                    return responseData.answer || "Sorry, I couldn't find an answer.";
+                } catch (error) {
+                    console.error("Error:", error);
+                    return "Sorry, there was an error processing your request.";
+                }
+            }
+
+            function appendMessage(message, sender) {
+                const chatBubble = document.createElement("div");
+                chatBubble.classList.add("flex", "flex-col", "items-start", "max-w-xs", "rounded-lg", "p-3", sender === "user" ? "bg-green-500" : "bg-blue-500", "text-white", sender === "user" ? "self-start" : "self-end");
+                chatBubble.innerHTML = `<span class="text-sm">${message}</span>`;
+                chatBox.appendChild(chatBubble);
+            }
+        });
+    </script>
 </body>
 </html>
