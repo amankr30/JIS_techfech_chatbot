@@ -127,8 +127,11 @@
             const closeModalBtn = document.getElementById("closeModalBtn");
             const saveModalBtn = document.getElementById("saveModalBtn");
             const modalTextarea = document.getElementById("modalTextarea");
+
+            let modalText = localStorage.getItem("modalText") || '';
+
     
-            let modalText = ''; // Define modalText outside event listeners
+           
     
             openModalBtn.addEventListener("click", () => {
                 modal.style.display = "block";
@@ -149,6 +152,8 @@
                 console.log("Modal text:", modalText);
                 modal.style.display = "none";
                 modalTextarea.value = "";
+                localStorage.setItem("modalText", modalText);
+
             });
     
             const userInput = document.getElementById("user_input");
